@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Gateways;
 
 
-class PaypalCurlService
+class PaypalCurl
 {
     const URL='https://api.sandbox.paypal.com/v1/payments/payment';
 

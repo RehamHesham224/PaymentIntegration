@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Gateways\PaypalCurl;
 use App\Models\Transaction;
-use App\Services\PaypalCurlService;
 use Illuminate\Http\Request;
 
 class PaypalCurlController extends Controller
@@ -12,7 +12,7 @@ class PaypalCurlController extends Controller
     {
         return view('welcome');
     }
-    public function processPayment(Request $request, PaypalCurlService $service)
+    public function processPayment(Request $request, PaypalCurl $service)
     {
         // Set the payment amount from the form input
         $amount = $request->input('amount');

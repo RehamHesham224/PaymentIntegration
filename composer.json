@@ -6,11 +6,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "fawaterk/fawaterk-sdk": "^1.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "myfatoorah/laravel-package": "^2.1",
         "paypal/rest-api-sdk-php": "^1.14",
         "srmklive/paypal": "~3.0",
         "yajra/laravel-datatables-buttons": "^4.13"
