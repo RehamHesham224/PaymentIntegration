@@ -34,8 +34,25 @@ Route::controller(PaypalCurlController::class)
 Route::controller(FawaterkController::class)
     ->prefix('fawaterk')
     ->group(function () {
-        Route::get('get-payment-methods','index')->name('fawaterk.methods');
-        Route::get('execute-payment-method','executePayment')->name('fawaterk.executePayment');
-        Route::get('send-payment-method','sendPayment')->name('fawaterk.sendPayment');
+
+        Route::get('/', 'index')->name('payment.index');
+        Route::post('/choose-method', 'choosePaymentMethod')->name('payment.choose-method');
+
+        Route::post('/process-payment', 'processPayment')->name('payment.process-payment');
+        Route::post('/create-invoice', 'createInvoice')->name('payment.create-invoice');
+
+        Route::get('/success', 'success')->name('payment.success');
+        Route::get('/failure', 'failure')->name('payment.failure');
+        Route::get('/pending','pending')->name('payment.pending');
+
+        Route::get('/transaction-data', 'getTransactionData')->name('payment.transaction-data');
+        Route::post('/store-credit-card', 'storeCreditCard')->name('payment.store_credit_card');
+
+
+
     });
+
+// routes/web.php
+
+
 
