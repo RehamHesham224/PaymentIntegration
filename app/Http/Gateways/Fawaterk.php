@@ -23,99 +23,109 @@ class Fawaterk
         return $paymentMethods;
     }
 
-    public function executePayment()
+    public function executePayment($params)
     {
-        $user=[
-            'first_name' => 'mohammad',
-            'last_name' => 'hamza',
-            'email' => 'test@fawaterk.com',
-            'phone' => '01xxxxxxxxx',
-            'address' => 'test address',
-        ];
-        $urls=[
-            'successUrl' => 'https://dev.fawaterk.com/success',
-            'failUrl' => 'https://dev.fawaterk.com/fail',
-            'pendingUrl' => 'https://dev.fawaterk.com/pending',
-        ];
-        $items=[
-            [
-                'name' => 'this is test oop 112252',
-                'price' => '25',
-                'quantity' => '1',
-            ],
-            [
-                'name' => 'this is test oop 112252',
-                'price' => '25',
-                'quantity' => '1',
-            ],
-        ];
-        $currency='EGP';
-        $cartTotal='50';
-        $payment_method_id=2;
+//        $user=[
+//            'first_name' => 'mohammad',
+//            'last_name' => 'hamza',
+//            'email' => 'test@fawaterk.com',
+//            'phone' => '01xxxxxxxxx',
+//            'address' => 'test address',
+//        ];
+//        $urls=[
+//            'successUrl' => 'https://dev.fawaterk.com/success',
+//            'failUrl' => 'https://dev.fawaterk.com/fail',
+//            'pendingUrl' => 'https://dev.fawaterk.com/pending',
+//        ];
+//        $items=[
+//            [
+//                'name' => 'this is test oop 112252',
+//                'price' => '25',
+//                'quantity' => '1',
+//            ],
+//            [
+//                'name' => 'this is test oop 112252',
+//                'price' => '25',
+//                'quantity' => '1',
+//            ],
+//        ];
+//        $currency='EGP';
+//        $cartTotal='50';
+//        $payment_method_id=2;
+//        $params=[
+//            'payment_method_id' => $payment_method_id,
+//            'cartTotal' => $cartTotal,
+//            'currency' => $currency,
+//            'customer' => $user,
+//            'redirectionUrls' => $urls,
+//            'cartItems' => $items,
+//        ];
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer '.self::TOKEN,
-        ])->post(self::BASE_URL.'/invoiceInitPay', [
-            'payment_method_id' => $payment_method_id,
-            'cartTotal' => $cartTotal,
-            'currency' => $currency,
-            'customer' => $user,
-            'redirectionUrls' => $urls,
-            'cartItems' => $items,
-        ]);
+        ])->post(self::BASE_URL.'/invoiceInitPay', $params);
 
         // Handle the response as needed
         $responseData = $response->json();
         dd($responseData);
 //        return $responseData;
+        //"status" => "success"
+        //  "data" => array:3 [▼
+        //    "invoice_id" => 1017886
+        //    "invoice_key" => "GJ04NsUp2ynmPZX"
+        //    "payment_data" => array:1 [▼
+        //      "redirectTo" => "https://staging.fawaterk.com/lk/10694"
+        //    ]
+        //  ]
 
         // You can access the response data like $responseData['status'] and $responseData['data']
 
         // Add your logic here to handle the payment response
     }
     //-----------------------------------CREATE INVOICE LINK -------------------------
-    public function sendPayment()
+    public function sendPayment($params)
     {
+//        $params=[
+//            'cartTotal' => '50',
+//            'currency' => 'EGP',
+//            'customer' => [
+//                'first_name' => 'mohammad',
+//                'last_name' => 'hamza',
+//                'email' => 'test@fawaterk.com',
+//                'phone' => '011252523655',
+//                'address' => 'test address',
+//            ],
+//            'redirectionUrls' => [
+//                'successUrl' => route('payment.success'),
+//                'failUrl' => route('payment.failure'),
+//                'pendingUrl' => route('payment.pending'),
+//            ],
+//            'cartItems' => [
+//                [
+//                    'name' => 'this is test oop 112252',
+//                    'price' => '25',
+//                    'quantity' => '1',
+//                ],
+//                [
+//                    'name' => 'this is test oop 112252',
+//                    'price' => '25',
+//                    'quantity' => '1',
+//                ],
+//            ],
+//        ];
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer '.self::TOKEN,
-        ])->post(self::BASE_URL.'/createInvoiceLink', [
-            'cartTotal' => '50',
-            'currency' => 'EGP',
-            'customer' => [
-                'first_name' => 'mohammad',
-                'last_name' => 'hamza',
-                'email' => 'test@fawaterk.com',
-                'phone' => '011252523655',
-                'address' => 'test address',
-            ],
-            'redirectionUrls' => [
-                'successUrl' => 'https://dev.fawaterk.com/success',
-                'failUrl' => 'https://dev.fawaterk.com/fail',
-                'pendingUrl' => 'https://dev.fawaterk.com/pending',
-            ],
-            'cartItems' => [
-                [
-                    'name' => 'this is test oop 112252',
-                    'price' => '25',
-                    'quantity' => '1',
-                ],
-                [
-                    'name' => 'this is test oop 112252',
-                    'price' => '25',
-                    'quantity' => '1',
-                ],
-            ],
-        ]);
+        ])->post(self::BASE_URL.'/createInvoiceLink',$params );
 
         $responseData = $response->json();
-        dd($responseData);
+//        dd($responseData);
 
         // You can handle the response here as needed
         // For example, you can return it, store it, or process it further
 
-//        return $responseData;
+        return $responseData;
     }
     public function createCardTokenization()
     {
@@ -124,7 +134,7 @@ class Fawaterk
             'Authorization' => 'Bearer '.self::TOKEN,
         ])->post(self::BASE_URL.'/createCardTokenization', [
             'order' => [
-                'currency' => 'EGP',
+                'currency' => 'KWD',
             ],
             'customerData' => [
                 'customer_unique_id' => '222111333',
@@ -149,10 +159,11 @@ class Fawaterk
         return $responseData;
     }
     public function getTransactionData(){
+        //you must have invoice id
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer '.self::TOKEN,
-        ])->get(self::BASE_URL.'/getInvoiceData/1001267');
+        ])->get(self::BASE_URL.'/getInvoiceData/1017891');
 
         echo $response->body();
     }

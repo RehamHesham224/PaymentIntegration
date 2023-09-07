@@ -13,13 +13,13 @@ Route::get('/transactions/data', [TransactionController::class, 'getData'])->nam
 
 //the two versions of paypal integration are working
 // Paypal using curl
-Route::controller(PaypalCurlController::class)
-    ->group(function () {
-        Route::get('/', 'index')->name('welcome');
-        Route::post('/process-payment','processPayment')->name('process.payment');
-        Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
-        Route::get('/payment/failed',  'paymentFailed')->name('payment.failed');
-    });
+//Route::controller(PaypalCurlController::class)
+//    ->group(function () {
+//        Route::get('/', 'index')->name('welcome');
+//        Route::post('/process-payment','processPayment')->name('process.payment');
+//        Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
+//        Route::get('/payment/failed',  'paymentFailed')->name('payment.failed');
+//    });
 
 // Paypal using Package
 
@@ -32,7 +32,7 @@ Route::controller(PaypalCurlController::class)
 //    });
 
 Route::controller(FawaterkController::class)
-    ->prefix('fawaterk')
+    ->prefix('fawaterak')
     ->group(function () {
 
         Route::get('/', 'index')->name('payment.index');
